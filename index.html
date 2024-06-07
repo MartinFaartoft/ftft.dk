@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ftft.dk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
@@ -12,23 +15,27 @@
     <div class="container">
         <img class="megaphone" src="megaphone.svg" width="700px">
         <ul>
-            <li><a href="#">Scribblings</a></li>
-            <li><a href="#">C.V.</a></li>
-            <li><a href="#">Asteroids</a></li>
-            <li><a href="#">Volley</a></li>
-            <li><a href="#">Missile Command</a></li>
-            <li><a href="#">Mahjong Statistics</a></li>
-            <li><a href="#">Socials</a></li>
+            <li><a href="#">&nbsp;Scribblings&nbsp;</a></li>
+            <li><a href="#">&nbsp;C.V.&nbsp;</a></li>
+            <li><a href="#">&nbsp;Asteroids&nbsp;</a></li>
+            <li><a href="#">&nbsp;Volley&nbsp;</a></li>
+            <li><a href="#">&nbsp;Missile Command&nbsp;</a></li>
+            <li><a href="#">&nbsp;Mahjong Statistics&nbsp;</a></li>
+            <li><a href="#">&nbsp;Socials&nbsp;</a></li>
         </ul>
 
     </div>
     <script type="text/javascript">
 (function () {
     var inputs = document.getElementsByTagName('li');
-    var step = 100.0 / (inputs.length - 1);
+    var width = 80.0;
+    var step = width / (inputs.length);
+    var start = width * (-0.5);
     for(var n = 0; n < inputs.length; n++) {
-        inputs[n].style.transform = 'rotate(' + (-50 + step * n) + 'deg) translate(120px, -35px)';
+        var rot = (start + (step * n));
+        inputs[n].style.transform = 'rotate(' + rot + 'deg) translate(120px, -35px)';
     }
 })();
     </script>
 </body>
+</html>

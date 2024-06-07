@@ -1,5 +1,19 @@
+body:before {
+	content:"";
+	position:fixed;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	z-index:-1; 
+    background: #a5a0a7;
+}
+
 body {
     margin: 0;
+    font-family: "Libre Barcode 128 Text";
+    font-weight: 400;
+    font-style: normal;
 }
 
 .container {
@@ -7,21 +21,23 @@ body {
     top:0;
     bottom: 0;
     width: 500px;
-    height: 500px;
+    height: 520px;
     margin: auto;
 }
 
-
 ul {
-    transform: translate(700px, -470px);
-    list-style-image: url(megaphone.svg);
+    transform: translate(500px, -500px);
+    /*list-style-image: url(megaphone.svg);*/
+    list-style-type: none;
 }
 
 li {
     transition: font-size 200ms;
     transform-origin: 0% 0%;
-    font-size: 2rem;
+    font-size: 3rem;
     white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: bolder;
 }
 
 li:hover {
@@ -35,7 +51,12 @@ a {
     color: black;
 }
 
+a:hover {
+    text-decoration: line-through;
+    text-decoration-color: red;
+}
+
 .megaphone {
     position: relative;
-    left: 20%
+    left: -100px;
 }
