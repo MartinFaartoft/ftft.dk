@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+.container {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+}
+
+
+ul {
+    transform: translate(700px, -470px);
+    list-style-image: url(megaphone.svg);
+}
+
+li {
+    transition: font-size 200ms;
+    transform-origin: 0% 0%;
+    font-size: 2rem;
+    white-space: nowrap;
+}
+
+li:hover {
+    font-weight: bolder;
+    font-size: 4rem;
+    transition:font-size 200ms;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.megaphone {
+    position: relative;
+    left: 20%
+}

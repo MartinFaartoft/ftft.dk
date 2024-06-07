@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ftft.dk</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <img class="megaphone" src="megaphone.svg" width="700px">
+        <ul>
+            <li><a href="#">Scribblings</a></li>
+            <li><a href="#">C.V.</a></li>
+            <li><a href="#">Asteroids</a></li>
+            <li><a href="#">Volley</a></li>
+            <li><a href="#">Missile Command</a></li>
+            <li><a href="#">Mahjong Statistics</a></li>
+            <li><a href="#">Socials</a></li>
+        </ul>
+
+    </div>
+    <script type="text/javascript">
+(function () {
+    var inputs = document.getElementsByTagName('li');
+    var step = 100.0 / (inputs.length - 1);
+    for(var n = 0; n < inputs.length; n++) {
+        inputs[n].style.transform = 'rotate(' + (-50 + step * n) + 'deg) translate(120px, -35px)';
+    }
+})();
+    </script>
+</body>
