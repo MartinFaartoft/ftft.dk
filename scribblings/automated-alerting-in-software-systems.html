@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ftft.dk</title>
+</head>    
+<body>
+    <h1>Automated alerting in software systems 🚨</h1>
+
+    <p>For the last decade, I have been building and operating large, distributed systems. Alerting is an important part of
+    running a reliable system with high uptime.</p>
+
+    Below are my top tips for setting up and maintaining alerts.
+
+    👉 Make alerts actionable
+    Every alert that will wake up an engineer at 3 in the morning, should require an action. If alerts are not
+    actionable, we stop taking them seriously, leading to on-call fatigue and eroding trust.
+
+    Remove or tweak noisy alerts that don't require actions.
+
+    👉Test your alerts
+    Use a lower environment to trigger the alert in a controlled way.
+    Similar to TDD, this builds confidence that our new alert is firing and resolving on the expected conditions.
+
+    👉Take lower environment alerts seriously (but don't wake anyone up)
+    CI/CD pipelines are great for verifying that tests pass and code integrates / compiles as expected, but they don't
+    catch everything.
+
+    We can use alerts from lower environments to catch problems before they hit production, like:
+    - Bad DB performance of a new query
+    - Degraded throughput of a service, due to a slow (but working) implementation
+    - Dead-letters piling up in a queue
+
+    👉Script your alerts
+    To get value from lower environment alerts, we should avoid alerts drifting out of sync across environments.
+    If we script our alerts and commit them to source control, we ensure they are identical across environments.
+
+    👉Avoid manually resolving alerts
+    It can be tempting to click the green "Resolve" button on the alert, as soon as we fix the issue. But how confident
+    are we really in the fix?
+    If we get it wrong, not only is our system still unhealthy, we're now completely blind as well.
+
+    Please add your tips or experiences with alerting in the comments :)
+</body>
+
+</html>
