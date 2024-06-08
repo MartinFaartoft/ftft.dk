@@ -20,18 +20,11 @@ body {
 }
 
 li {
-    transition: font-size 200ms;
     transform-origin: 0% 0%;
     font-size: 3rem;
     white-space: nowrap;
     text-transform: uppercase;
     font-weight: bolder;
-}
-
-li:hover {
-    font-weight: bolder;
-    font-size: 4rem;
-    transition:font-size 200ms;
 }
 
 a {
