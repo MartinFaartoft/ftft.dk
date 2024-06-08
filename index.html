@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
     <title>ftft.dk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,26 +16,28 @@
         <img class="megaphone" src="megaphone.svg" width="700px">
         <ul>
             <li><a href="#">&nbsp;Scribblings&nbsp;</a></li>
-            <li><a href="#">&nbsp;C.V.&nbsp;</a></li>
+            <li><a href="https://mahjong.ftft.dk">&nbsp;Mahjong Statistics&nbsp;</a></li>
+            <li><a href="#">&nbsp;CV&nbsp;</a></li>
             <li><a href="#">&nbsp;Asteroids&nbsp;</a></li>
             <li><a href="#">&nbsp;Volley&nbsp;</a></li>
             <li><a href="#">&nbsp;Missile Command&nbsp;</a></li>
-            <li><a href="#">&nbsp;Mahjong Statistics&nbsp;</a></li>
-            <li><a href="#">&nbsp;Socials&nbsp;</a></li>
+            <li><a href="https://github.com/MartinFaartoft">&nbsp;GitHub&nbsp;</a></li>
+            <li><a href="https://www.linkedin.com/in/faartoft/">&nbsp;LinkedIn&nbsp;</a></li>
         </ul>
 
     </div>
     <script type="text/javascript">
-(function () {
-    var inputs = document.getElementsByTagName('li');
-    var width = 80.0;
-    var step = width / (inputs.length);
-    var start = width * (-0.5);
-    for(var n = 0; n < inputs.length; n++) {
-        var rot = (start + (step * n));
-        inputs[n].style.transform = 'rotate(' + rot + 'deg) translate(120px, -35px)';
-    }
-})();
+        (function () {
+            var inputs = document.getElementsByTagName('li');
+            var width = 80.0;
+            var step = width / (inputs.length);
+            var start = width * (-0.5);
+            for (var n = 0; n < inputs.length; n++) {
+                var rot = (start + (step * n));
+                inputs[n].style.transform = 'rotate(' + rot + 'deg) translate(120px, -35px)';
+            }
+        })();
     </script>
 </body>
+
 </html>
