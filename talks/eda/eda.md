@@ -12,7 +12,7 @@ Lead Engineer @
 
 <img src="lego_logo_srgb.svg" width="50px">
 
-Get the slides: [ftft.dk/talks/eda](https://ftft.dk/talks/eda)
+Slides: [ftft.dk/talks/eda](https://ftft.dk/talks/eda)
 
 
 
@@ -22,7 +22,8 @@ Get the slides: [ftft.dk/talks/eda](https://ftft.dk/talks/eda)
 notes: millions of events per day
 
 
-## Events are easy
+## Getting started is easy
+Quickstarts / Tutorials / Template repos are everywhere
 
 
 ## Reliable events are <em>hard</em>
@@ -63,35 +64,93 @@ notes: test
 
 
 
-## Things that went wrong
+## Things I screwed up
 in no particular order
 
 
 
-## Built my own framework
-- Don't reinvent the wheel
+## Reinvented the wheel
 - Use MassTransit/Rebus/NServiceBus/?
 
 
 
-## Didn't understand configuration
-- Screwed up ack/commit (check your defaults!)
-<pre><code data-line-numbers>var e = await broker.Consume&lt;MyEvent&gt;();
-var result = ComplicatedCalculation(e);
-await broker.Publish(result);
-await broker.Ack(e);</code></pre>
+## Configuration
+
+<pre><code data-line-numbers>public async Task MessageHandler(MyEvent e)
+{
+&nbsp;&nbsp;var result = ComplicatedCalculation(e);
+&nbsp;&nbsp;//crash?
+&nbsp;&nbsp;await _broker.Publish(result);
+&nbsp;&nbsp;//crash?
+}
+</code></pre>
+
+<p class="fragment fade-up">
+    ReceiveMode.ReceiveAndDelete
+    ReceiveMode.PeekLock
+</p>
 
 
-## different names
+## Different terms
 - Complete
-- Commit
+- (Auto)Commit
 - Ack
+- Prefetch
+- {AUTO|CLIENT|UNORDERED}_ACKNOWLEDGE
 
 
 
-## Screwed up Dual Write
-- Outbox pattern
-- CDC
+## Dual-Writes
+
+<pre><code data-line-numbers>public async Task MessageHandler(MyEvent e)
+{
+&nbsp;&nbsp;var result = ComplicatedCalculation(e);
+&nbsp;&nbsp;await _dbContext.SaveChanges();
+&nbsp;&nbsp;//crash?
+&nbsp;&nbsp;await _broker.Publish(result);
+}
+</code></pre>
+
+
+## 1) Transactional Outbox
+
+<pre><code data-line-numbers>public async Task MessageHandler(MyEvent e)
+{
+&nbsp;&nbsp;var result = ComplicatedCalculation(e);
+&nbsp;&nbsp;_dbContext.Outbox.Add(result);
+&nbsp;&nbsp;await _dbContext.SaveChanges();
+}
+</code></pre>
+
+<div class="mermaid">
+    <pre>
+        %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+        flowchart LR
+            A[Service] -- STORE --> B[(DB)];
+            B -- READ --> C[Outbox worker];
+            C -- PUBLISH --> D[Broker];
+    </pre>
+</div>
+
+
+## 2) Change Data Capture
+Let the database track changes
+
+<pre><code data-line-numbers>public async Task MessageHandler(MyEvent e)
+{
+&nbsp;&nbsp;var result = ComplicatedCalculation(e);
+&nbsp;&nbsp;//_dbContext.Outbox.Add(result);
+&nbsp;&nbsp;await _dbContext.SaveChanges();
+}
+</code></pre>
+
+- [MSSQL CDC](https://learn.microsoft.com/en-us/sql/relational-databases/track-changes/about-change-data-capture-sql-server?view=sql-server-ver16)
+- [DynamoDB CDC](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/streamsmain.html)
+- [Azure CosmosDB change-feed](https://learn.microsoft.com/en-us/azure/cosmos-db/change-feed)
+
+
+## 3) Nothing
+Let retry deal with it
 
 
 
