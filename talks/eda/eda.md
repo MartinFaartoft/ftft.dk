@@ -34,11 +34,11 @@ Don't repeat my mistakes!
 ## Distributed systems 101
 
 
-## Your app will crash 
+### Your app will crash 
 (at the worst possible time)
 
 
-## The network is <em>not</em> reliable
+### The network is <em>not</em> reliable
 
 
 ### Synchronous
@@ -70,7 +70,17 @@ in no particular order
 
 
 ## Reinvented the wheel
-- Use MassTransit/Rebus/NServiceBus/?
+[Picture of wheel]
+notes: 
+- Seemed smart in the beginning, because I didn't know what I didn't know. 
+- Migrating while running was painful. 
+- Changing frameworks was painful - abstractions didn't exactly fit.
+
+
+### Use a library
+[Picture standing on the shoulder of giants]
+[Pictures library logos]
+notes: Use MassTransit/Rebus/NServiceBus
 
 
 
@@ -91,12 +101,14 @@ in no particular order
 </p>
 
 
-## Different terms
+## Learn the language
+- PeekLock, ReceiveAndDelete
 - Complete
 - (Auto)Commit
 - Ack
 - Prefetch
 - {AUTO|CLIENT|UNORDERED}_ACKNOWLEDGE
+notes: What happened? A bunch of events disappeared
 
 
 
@@ -110,13 +122,16 @@ in no particular order
 &nbsp;&nbsp;await _broker.Publish(result);
 }
 </code></pre>
+notes:
+- What happened? Two systems were slightly out of sync
 
 
-## 1) Transactional Outbox
+### 1 - Transactional Outbox
 
-<pre><code data-line-numbers>public async Task MessageHandler(MyEvent e)
+<pre><code data-line-numbers>public async Task MessageHandler(OrderUpdated e)
 {
-&nbsp;&nbsp;var result = ComplicatedCalculation(e);
+&nbsp;&nbsp;await var order = _dbContext.Orders.Find(e.Id);
+&nbsp;&nbsp;var result = UpdateOrder(order, e);
 &nbsp;&nbsp;_dbContext.Outbox.Add(result);
 &nbsp;&nbsp;await _dbContext.SaveChanges();
 }
@@ -131,14 +146,18 @@ in no particular order
             C -- PUBLISH --> D[Broker];
     </pre>
 </div>
+notes: 
+- doesn't have to be a db write
+- distributed transactions
 
 
-## 2) Change Data Capture
+### 2 - Change Data Capture (CDC)
 Let the database track changes
 
-<pre><code data-line-numbers>public async Task MessageHandler(MyEvent e)
+<pre><code data-line-numbers>public async Task MessageHandler(OrderUpdated e)
 {
-&nbsp;&nbsp;var result = ComplicatedCalculation(e);
+&nbsp;&nbsp;await var order = _dbContext.Orders.Find(e.Id);
+&nbsp;&nbsp;var result = UpdateOrder(order, e);
 &nbsp;&nbsp;//_dbContext.Outbox.Add(result);
 &nbsp;&nbsp;await _dbContext.SaveChanges();
 }
@@ -149,12 +168,15 @@ Let the database track changes
 - [Azure CosmosDB change-feed](https://learn.microsoft.com/en-us/azure/cosmos-db/change-feed)
 
 
-## 3) Nothing
+## 3 - Nothing
 Let retry deal with it
 
 
 
-## Trusted order of events
+## ![Distributed Systems Tweet](distributed-systems-tweet.png)
+
+
+## Trusted message ordering
 - Detour: dead-letters
 - Dead letters
 - Competing consumers
@@ -162,8 +184,12 @@ Let retry deal with it
 - Tombstones
 
 
-##
-![Distributed Systems Tweet](distributed-systems-tweet.png)
+
+## Didn't apply Idempotency
+- What is idempotency
+- Detour: delivery semantics
+- Sent a few too many emails
+
 
 
 ## Concurrency
@@ -173,13 +199,6 @@ Let retry deal with it
 
 ## Didn't store processed events
 - Explaining current state is _really_ hard without it
-
-
-
-## Didn't apply Idempotency
-- What is idempotency
-- Detour: delivery semantics
-- Sent a few too many emails
 
 
 
