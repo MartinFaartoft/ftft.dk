@@ -229,27 +229,44 @@ Let retry deal with it
 
 
 ## Wordcloud
-- Delivery Semantics
-- Idempotency
-- Dual Write
-- Change Data Capture
-- Two-Phase Commit
-- Disitributed Transaction
-- Transactional Outbox
-- Dead letter
-- Peek-lock
-- Topics
-- Queues
-- Subscriptions
-- Partitioning
-- FIFO
-- LIFO
-- Exactly once delivery
-- At least once delivery
-- At most once delivery
-- Exactly once processing
-- Two Generals problem
-- Failure Semantics
-- Sync
-- Async
-- Eventual Consistency
+Delivery_Semantics
+Failure_Semantics
+Idempotency
+Dual_Write
+Change_Data_Capture
+Two-Phase_Commit
+Distributed_Transaction
+Transactional_Outbox
+Dead-letter
+Peek-lock
+Topics
+Queues
+Subscriptions
+Partitioning
+FIFO
+LIFO
+Exactly_once_delivery
+At_least_once_delivery
+At_most_once_delivery
+Exactly_once_processing
+Two_Generals_problem
+Failure_Semantics
+Sync
+Async
+Eventual_Consistency
+Messages
+Events
+Commands
+Prefetch
+Tombstones
+Consumer
+Producer
+Publisher
+Subscription
+Subscriber
+Duplicate_detection
+Event-streaming
+Message_broker
+MQTT
+AMQP
+Event_sourcing
